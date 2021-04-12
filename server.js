@@ -1,17 +1,32 @@
 const {ApolloServer } = require('apollo-server');
 const gql = require('graphql-tag');
+const mongoose = require('mongoose');
+
 
 
 const typeDefs =gql`
-    type Query{
-        sayHello:String!
+    type Post {
+        id: ID!
+        body:String!
+        createdAt:String!
+        username:String!
 
     }
-`
+    type Query {
+        getPosts:[Post]
+    }
+`;
 
 const resolvers ={
     Query: {
-        sayHi:() => 'Namasta World!'
+        async getPosts() {
+            try{
+                const posts =await postMessage.find();
+                return posts;
+            }catch(err) {
+                throw new Error(err);
+            }
+        }
     }
 }
 
@@ -22,7 +37,7 @@ const server = new ApolloServer({
 
 server.listen({port: 4000})
     .then(res => {
-        console.log(`server is going live ${res.url}`)
+        console.log(`Server is going live ${res.url}`)
     })
 
 
