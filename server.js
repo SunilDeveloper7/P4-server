@@ -19,7 +19,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
 }); 
-mongoose.connect(MONGODB, { useNewUrlParser:true})
+mongoose.connect(MONGODB, { useNewUrlParser:true, useUnifiedTopology: true })
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
