@@ -1,7 +1,6 @@
 const bcrypt=require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-
+const { UserInputError } = require('applo-server')
 
 
 const { SECRET_KEY} = require('../config')
@@ -12,10 +11,20 @@ module.exports = {
     Mutation: {
         async register(_,{
             registerInput:{username,email,password,confirmPassword }
-        },
-        context,
-        info
+        }
+        
         ) {
+
+            const user =await User.findOne({username})
+            if(user){
+                throw new UserInputError('Username is taken', {
+                    errors: {
+                        username:'This username is taken'
+                    }
+                })
+
+            }
+
             password =await bcrypt.hash(password, 12);
             const newUser = new User({
                 email,
