@@ -4,19 +4,20 @@ const mongoose = require('mongoose');
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./resolvers');
 const { MONGODB } = require('./config');
-// const pubsub = new PubSub();
 
-const PORT = process.env.port || 5000;
+const PORT = process.env.port || 4000;
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => ({ req })
+typeDefs,
+resolvers,
+context: ({ req }) => ({ req })
 });
 
+
+//mongo setup
 mongoose
 .connect(MONGODB, { useNewUrlParser: true })
- .then(() => {
+.then(() => {
     console.log('MongoDB Connected');
     return server.listen({ port: PORT });
 })
@@ -25,4 +26,4 @@ mongoose
 })
 .catch(err => {
     console.error(err)
-  })
+})
