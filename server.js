@@ -2,10 +2,7 @@ const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
 const typeDefs = require('./graphql/typeDefs');
-const index = require('./resolvers/index');
-const post = require('./resolvers/posts')
-const user = require('./resolvers/users')
-
+const resolvers = require('./resolvers');
 const { MONGODB } = require('./config');
 // const pubsub = new PubSub();
 
@@ -28,4 +25,4 @@ mongoose
 })
 .catch(err => {
     console.error(err)
-})
+  })
