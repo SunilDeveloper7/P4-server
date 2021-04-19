@@ -27,6 +27,7 @@ type User {
     email: String!
     token: String!
     username: String!
+    createdAt:String!
     
 }
 input RegisterInput {
@@ -34,6 +35,7 @@ input RegisterInput {
     password: String!
     confirmPassword: String!
     email: String!
+
 }
 type Query {
     getPosts: [Post]
